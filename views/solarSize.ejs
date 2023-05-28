@@ -5,17 +5,10 @@
   <div class="mainSide">
     <div class="clientDetails">Sizing Details by Monthly Bill</div>
 
-    <div class="sizingDetails">Client ID: <%= clientDetails[0].clientID %></div>
-    <div class="sizingDetails">
-      Client Name: <%= clientDetails[0].firstname %> <%=
-      clientDetails[0].lastname %>
-    </div>
-    <div class="sizingDetails">
-      Estimated Power Required: <%= powerSizing[0].load_watts %>
-    </div>
-    <div class="sizingDetails">
-      Phase Type: <%= powerSizing[0].output_phase %> Phase
-    </div>
+    <div class="sizingDetails">Client ID:</div>
+    <div class="sizingDetails">Client Name:</div>
+    <div class="sizingDetails">Estimated Power Required:</div>
+    <div class="sizingDetails">Phase Type: Phase</div>
     <br />
 
     <form action="/sizingByBillPanel" method="POST">
@@ -26,8 +19,7 @@
             name="inverterOption"
             id="inverterOption"
             class="sizingOptions"
-            onchange="calcInvPower()"
-          >
+            onchange="calcInvPower()">
             <% for (var i = 0; i < inverters.length; i++) { %>
             <option value="<%" ="inverters[i].output_powerW" %>
               ><%= inverters[i].inverter_model %>
@@ -39,8 +31,7 @@
             name="inverterOptionPcs"
             id="inverterOptionPcs"
             class="sizingOptions"
-            onchange="calcInvPower()"
-          >
+            onchange="calcInvPower()">
             <% for (var i = 0; i <= 10; i++) { %>
             <option value="<%" ="i" %>><%= i %></option>
             <% } %></select
@@ -53,8 +44,7 @@
             id="calculatedInvPower"
             name="calculatedInvPower"
             value="0"
-            readonly
-          /><br />
+            readonly /><br />
           <br />
         </div>
         <div class="totalSolarPower">
@@ -63,8 +53,7 @@
             name="panelOption"
             id="panelOption"
             class="sizingOptions"
-            onchange="calcSolarPower()"
-          >
+            onchange="calcSolarPower()">
             <% for (var i = 0; i < solarpanels.length; i++) { %>
             <option value="<%" ="solarpanels[i].Wp" %>
               ><%= solarpanels[i].panel_model %>
@@ -76,8 +65,7 @@
             name="panelOptionPcs"
             id="panelOptionPcs"
             class="sizingOptions"
-            onchange="calcSolarPower()"
-          >
+            onchange="calcSolarPower()">
             <% for (var i = 0; i <= 100; i++) { %>
             <option value="<%" ="i" %>><%= i %></option>
             <% } %></select
@@ -90,8 +78,7 @@
             id="calculatedSolarPower"
             name="calculatedSolarPower"
             value="0"
-            readonly
-          /><br />
+            readonly /><br />
           <br />
         </div>
         <div class="totalBattPower">
@@ -100,8 +87,7 @@
             name="batteryOption"
             id="batteryOption"
             class="sizingOptions"
-            onchange="calcBattEnergy()"
-          >
+            onchange="calcBattEnergy()">
             <% for (var i = 0; i < batteries.length; i++) { %>
             <option value="<%" ="batteries[i].capacity_Ah" %>
               ><%= batteries[i].battery_model %>
@@ -113,8 +99,7 @@
             name="batteryOptionPcs"
             id="batteryOptionPcs"
             class="sizingOptions"
-            onchange="calcBattEnergy()"
-          >
+            onchange="calcBattEnergy()">
             <% for (var i = 0; i <= 20; i++) { %>
             <option value="<%" ="i" %>><%= i %></option>
             <% } %></select
@@ -127,8 +112,7 @@
             id="calculatedBattEnergy"
             name="calculatedBattEnergy"
             value="0"
-            readonly
-          /><br />
+            readonly /><br />
           <br />
         </div>
       </div>
@@ -141,8 +125,7 @@
         id="logout-btn"
         class="loginbtn"
         formaction="/logout"
-        formmethod="get"
-      >
+        formmethod="get">
         LOG OUT
       </button>
     </form>

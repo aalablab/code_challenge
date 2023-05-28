@@ -66,23 +66,7 @@ app.get("/", function (req, res) {
 app.get("/solarSize", function (req, res) {
   let v_sessionUsr = req.session.user;
 
-  if (v_sessionUsr) {
-    var q =
-      "SELECT * FROM clients WHERE workstatus = 'pending' ORDER BY firstname ASC";
-    connection.query(q, function (error, results, fields) {
-      if (error) throw error;
-
-      if (results[0] != null) {
-        req.session.solarSize = results;
-      }
-      res.render("solarSize", {
-        solarSize: req.session.solarSize,
-        errors: req.session.errors,
-      });
-    });
-  } else {
-    res.redirect("/");
-  }
+  res.render("solarSize", {});
 });
 
 app.post("/createClient", function (req, res) {
