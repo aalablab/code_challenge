@@ -55,7 +55,7 @@ app.get("/", function (req, res) {
   if (v_sessionUsr) {
     res.redirect("/solarSize");
   } else {
-    res.render("termsPage", {
+    res.render("home", {
       loginOK: req.session.loginOK,
       errors: req.session.errors,
     });
