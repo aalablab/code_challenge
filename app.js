@@ -62,7 +62,7 @@ app.get("/", function (req, res) {
   }
 });
 
-//Size Solar
+//Size Solar PV System
 app.get("/solarSize", function (req, res) {
   let v_sessionUsr = req.session.user;
 
