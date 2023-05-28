@@ -34,9 +34,6 @@ app.use(
 var bodyParser = require("body-parser"); //install body-parser to get the needed data to pass into a post request.
 app.use(bodyParser.urlencoded({ extended: true }));
 
-var bcrypt = require("bcrypt");
-var saltRounds = 10;
-
 app.use(function (req, res, next) {
   res.setHeader(
     "Cache-Control",
@@ -51,118 +48,22 @@ app.use(function (req, res, next) {
 var v_sessionUsr = {};
 // End Initializations ==============================
 
-// Start Access ================================================================================================
-//Home - Log in.
+// Start Sizing ================================================================================================
 app.get("/", function (req, res) {
   let v_sessionUsr = req.session.user;
   // If the user has already logged in, then redirect to installer dashboard.
   if (v_sessionUsr) {
-    res.redirect("/termsPage");
+    res.redirect("/solarSize");
   } else {
-    res.render("home", {
+    res.render("termsPage", {
       loginOK: req.session.loginOK,
       errors: req.session.errors,
     });
   }
 });
-app.post("/signin", function (req, res) {
-  var ipAddressMo = req.socket.remoteAddress;
-  req.session.pcIPAdd = ipAddressMo;
-  req.session.userID = Number(req.body.installerID);
-  req.session.userpw = req.body.pword;
 
-  if (Number.isInteger(req.session.userID)) {
-    var q = "SELECT * FROM installers WHERE installerID = ?";
-    connection.query(q, req.session.userID, function (error, results, fields) {
-      if (error) throw error;
-      if (results.length == 0) {
-        req.session.errors = "Cannot find your profile. Contact Warren.";
-        req.session.loginOK = false;
-        res.redirect("/");
-      } else {
-        if (req.session.userpw == results[0].pword) {
-          req.session.user = results;
-          req.session.user[0].name =
-            results[0].firstname + " " + results[0].lastname;
-          req.session.loginOK = true;
-          req.session.currQueIndex = 0;
-          res.redirect("/termsPage"); //render will open a new page.
-        } else {
-          req.session.errors = "Wrong password. Try again or contact Warren.";
-          req.session.loginOK = false;
-          res.redirect("/");
-        }
-      }
-    });
-  } else {
-    req.session.errors = "Wrong username. Try again or contact Warren.";
-    req.session.loginOK = false;
-    res.redirect("/");
-  }
-});
-
-//Show installer dashboard.
-app.get("/termsPage", function (req, res) {
-  let v_sessionUsr = req.session.user;
-  // If the user has already logged in, then redirect to installer dashboard.
-  if (v_sessionUsr) {
-    res.render("termsPage", {
-      v_sessionUsr: req.session.user,
-      pwordchgd: req.session.pwordchgd,
-    });
-  } else {
-    res.redirect("/");
-  }
-});
-
-//Let user change password.
-app.get("/chgpword", function (req, res) {
-  let v_sessionUsr = req.session.user;
-
-  if (v_sessionUsr) {
-    res.render("chgpword", {
-      pwordchgd: req.session.pwordchgd,
-      errors: req.session.errors,
-    });
-  } else {
-    res.redirect("/");
-  }
-});
-//Pasword change.
-app.post("/pwordchgd", function (req, res) {
-  if (req.session.user[0].pword != req.body.oldpw) {
-    req.session.errors = "Old Password Incorrect!!!";
-    req.session.pwordchgd = false;
-    res.redirect("/chgpword");
-  } else {
-    if (req.body.newpw != req.body.newpwConfirm) {
-      req.session.errors = "New Password does not match Confirm Password!";
-      req.session.pwordchgd = false;
-      res.redirect("/chgpword");
-    } else {
-      var q = "UPDATE installers SET pword = ? WHERE installerID = ?";
-      connection.query(
-        q,
-        [req.body.newpw, req.session.userID],
-        function (error, results, fields) {
-          if (error) {
-            console.log(error);
-            req.session.errors = "CANNOT Update the Database. contact Warren.";
-            req.session.pwordchgd = false;
-            res.redirect("/chgpword");
-          } else {
-            req.session.pwordchgd = true;
-            req.session.user[0].v_password = req.body.newpw;
-            res.redirect("/termsPage"); //render will open a new page
-          }
-        }
-      );
-    }
-  }
-});
-
-//Size Solar and List Available Clients
-app.get("/clientList", function (req, res) {
+//Size Solar
+app.get("/solarSize", function (req, res) {
   let v_sessionUsr = req.session.user;
 
   if (v_sessionUsr) {
@@ -172,10 +73,10 @@ app.get("/clientList", function (req, res) {
       if (error) throw error;
 
       if (results[0] != null) {
-        req.session.clientList = results;
+        req.session.solarSize = results;
       }
-      res.render("clientList", {
-        clientList: req.session.clientList,
+      res.render("solarSize", {
+        solarSize: req.session.solarSize,
         errors: req.session.errors,
       });
     });
@@ -331,7 +232,7 @@ app.post("/sizingByBillPanel", function (req, res) {
   var panelOption = req.body.panelOption;
   var panelOptionPcs = req.body.panelOptionPcs;
   var calculatedSolarPower = req.body.calculatedSolarPower;
-  
+
   var batteryOption = req.body.batteryOption;
   var batteryOptionPcs = req.body.batteryOptionPcs;
   var calculatedBattEnergy = req.body.calculatedBattEnergy;
@@ -341,7 +242,15 @@ app.post("/sizingByBillPanel", function (req, res) {
       "INSERT INTO clientPowerSizings (system_supply_watts, recommended_inverter, pcs_of_inverter, recommended_battery, pcs_of_battery, recommended_panel, pcs_of_panel) VALUES (?,?,?,?,?,?,?)";
     connection.query(
       q,
-      [calculatedInvPower, inverterOption, inverterOptionPcs, batteryOption, batteryOptionPcs, panelOption, panelOptionPcs],
+      [
+        calculatedInvPower,
+        inverterOption,
+        inverterOptionPcs,
+        batteryOption,
+        batteryOptionPcs,
+        panelOption,
+        panelOptionPcs,
+      ],
       function (error, results) {
         if (error) throw error;
       }

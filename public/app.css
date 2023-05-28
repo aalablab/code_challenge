@@ -55,7 +55,7 @@ body {
 }
 /* ============ END FOOTER STYLES ==================== */
 
-/* ============ BEGIN LOGIN + HOME STYLES =========== */
+/* ============ BEGIN SOLAR SIZING STYLES =========== */
 .dashcontainer {
   display: flex;
   min-height: 75vh;
@@ -93,7 +93,7 @@ label {
   width: 200px;
 }
 
-.loginField {
+.formField {
   margin-top: 5px;
   margin-bottom: 20px;
   margin-left: 0;
@@ -105,7 +105,7 @@ label {
   border-color: rgb(230, 230, 230);
 }
 
-.loginbtn {
+.formbtn {
   font-family: sans-serif;
   font-size: 15px;
   padding: 5px 30px;
@@ -117,7 +117,7 @@ label {
   border-color: rgb(230, 230, 230);
 }
 
-/* =========== END LOGIN + HOME + TERMS STYLES ============= */
+/* =========== END SOLAR SIZING STYLES ============= */
 
 /* =========== BEGIN CLIENT + SOLAR SIZING STYLES ========== */
 
@@ -135,28 +135,28 @@ label {
 }
 
 .sizingOptions {
-    margin-top: 5px;
-    margin-bottom: 20px;
-    margin-left: 0;
-    padding: 5px 5px;
-    width: 220px;
-    height: 30px;
-    font-size: 15px;
-    border-radius: 5px;
-    border-color: rgb(230, 230, 230);
+  margin-top: 5px;
+  margin-bottom: 20px;
+  margin-left: 0;
+  padding: 5px 5px;
+  width: 220px;
+  height: 30px;
+  font-size: 15px;
+  border-radius: 5px;
+  border-color: rgb(230, 230, 230);
 }
 
 .sizingNoOptions {
-    margin-top: 5px;
-    margin-bottom: 20px;
-    margin-left: 0;
-    padding: 5px 5px;
-    width: 220px;
-    height: 30px;
-    font-size: 15px;
-    border-radius: 5px;
-    border-color: rgb(230, 230, 230);
-    background-color: rgb(211, 204, 204);
+  margin-top: 5px;
+  margin-bottom: 20px;
+  margin-left: 0;
+  padding: 5px 5px;
+  width: 220px;
+  height: 30px;
+  font-size: 15px;
+  border-radius: 5px;
+  border-color: rgb(230, 230, 230);
+  background-color: rgb(211, 204, 204);
 }
 
 .solarsize-btn {
@@ -174,17 +174,16 @@ label {
 }
 
 .totalSystemValues {
-    display: flex;
+  display: flex;
 }
 .totalInvPower {
-    flex: 30%;
+  flex: 30%;
 }
 .totalSolarPower {
-    flex: 30%;
+  flex: 30%;
 }
 .totalBattPower {
-    flex: 30%;
+  flex: 30%;
 }
-
 
 /* ===================================== END CLIENT + SOLAR SIZING STYLES ========================================== */

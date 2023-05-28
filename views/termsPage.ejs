@@ -3,35 +3,19 @@
 <div class="dashcontainer">
   <div class="emptySide"></div>
   <div class="mainSide">
-    <div class="successNotification">
-      <% if (pwordchgd == true) { %> Password Changed Successfully! <% } else {
-      %> LOG IN SUCCESSFUL!!! <% } %><br />
-    </div>
-
-    <div>Good day <b><%= v_sessionUsr[0].name %></b>.</div>
+    <div><b> Disclaimer of Liability </b></div>
     <br />
     <div>
-      By clicking <b>"ACCEPT"</b>, you agree to all the terms and conditions in
-      using this app.
+      Handrocks Solar does not assume responsibility and disclaims liability for
+      damage, loss, or expense arising from improper use, operation, or
+      installation of solar PV System by following the recommendation here.
+      Handrocks Solar assumes such position due to the inability to control the
+      conditions and methods of installation of the solar PV System.
     </div>
     <br /><br />
 
-    <form action="/clientList" method="GET">
-      <button type="submit" id="accept-btn" class="loginbtn">ACCEPT</button>
-      <button
-        type="submit"
-        id="chgpword-btn"
-        class="loginbtn"
-        formaction="/chgpword">
-        CHANGE PASSWORD
-      </button>
-      <button
-        type="submit"
-        id="logout-btn"
-        class="loginbtn"
-        formaction="/logout">
-        LOG OUT
-      </button>
+    <form action="/solarSize" method="GET">
+      <button type="submit" id="accept-btn" class="formbtn">ACCEPT</button>
     </form>
   </div>
 </div>
